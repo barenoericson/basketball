@@ -31,7 +31,7 @@ public class reservation extends javax.swing.JFrame {
  public void displayData(){
         try{
             connectDB dbc = new connectDB();
-            ResultSet rs = dbc.getData("SELECT * FROM users");
+            ResultSet rs = dbc.getData("SELECT * FROM reservation");
             reservationTable.setModel(DbUtils.resultSetToTableModel(rs));
              rs.close();
         }catch(SQLException ex){
@@ -55,6 +55,8 @@ public class reservation extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         back = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
+        back1 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         reservationTable = new javax.swing.JTable();
@@ -78,7 +80,7 @@ public class reservation extends javax.swing.JFrame {
         username.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         username.setForeground(new java.awt.Color(255, 255, 255));
         username.setText("Admin");
-        jPanel1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, -1, -1));
+        jPanel1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -123,7 +125,7 @@ public class reservation extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        jPanel1.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 220, 50));
+        jPanel1.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 220, 50));
 
         edit.setBackground(new java.awt.Color(51, 51, 51));
         edit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -163,7 +165,7 @@ public class reservation extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        jPanel1.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 220, 50));
+        jPanel1.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 220, 50));
 
         back.setBackground(new java.awt.Color(51, 51, 51));
         back.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -203,7 +205,47 @@ public class reservation extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 220, 50));
+        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 220, 50));
+
+        back1.setBackground(new java.awt.Color(51, 51, 51));
+        back1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                back1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                back1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                back1MouseExited(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Print");
+
+        javax.swing.GroupLayout back1Layout = new javax.swing.GroupLayout(back1);
+        back1.setLayout(back1Layout);
+        back1Layout.setHorizontalGroup(
+            back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 220, Short.MAX_VALUE)
+            .addGroup(back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(back1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel7)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        back1Layout.setVerticalGroup(
+            back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+            .addGroup(back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(back1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel7)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        jPanel1.add(back1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 220, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 440));
 
@@ -314,6 +356,55 @@ public class reservation extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_backMouseClicked
 
+    private void back1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back1MouseClicked
+                 int rowIndex = reservationTable.getSelectedRow();
+
+    if (rowIndex < 0) {
+        JOptionPane.showMessageDialog(null, "Please Select An Item!");
+    } else {
+        receipt a = new receipt();
+        try {
+        connectDB cdb = new connectDB();
+        TableModel tbl = reservationTable.getModel();
+        
+        String userId = tbl.getValueAt(rowIndex, 0).toString();
+        
+        ResultSet rs = cdb.getData("SELECT * FROM reservation WHERE r_id = '" + userId + "'");
+        
+        if (rs.next()) {
+            a.rid.setText(rs.getString("r_id"));          
+            a.cid.setText(rs.getString("c_id"));
+            a.et.setText(rs.getString("end_time"));     
+            a.revdate.setText(rs.getString("reservation_date"));
+            a.st.setText(rs.getString("start_time"));
+            a.status.setText(rs.getString("status"));
+            
+    
+            
+            String userStatus = rs.getString("status");
+            
+            
+            a.status.setText(userStatus != null ? userStatus : ""); 
+            a.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "User data not found!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Database Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+    }//GEN-LAST:event_back1MouseClicked
+
+    private void back1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back1MouseEntered
+        back1.setBackground(Color.black);
+    }//GEN-LAST:event_back1MouseEntered
+
+    private void back1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back1MouseExited
+        back1.setBackground(new Color (51,51,51));
+    }//GEN-LAST:event_back1MouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -353,12 +444,14 @@ public class reservation extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel add;
     private javax.swing.JPanel back;
+    private javax.swing.JPanel back1;
     private javax.swing.JPanel edit;
     private javax.swing.JLabel id;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

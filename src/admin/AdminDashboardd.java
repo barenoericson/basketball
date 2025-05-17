@@ -45,6 +45,8 @@ public class AdminDashboardd extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         a = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
+        a1 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         username = new javax.swing.JLabel();
@@ -99,7 +101,7 @@ public class AdminDashboardd extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        jPanel1.add(court, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 160, 50));
+        jPanel1.add(court, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 160, 50));
 
         user.setBackground(new java.awt.Color(51, 51, 51));
         user.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -139,7 +141,7 @@ public class AdminDashboardd extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        jPanel1.add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 160, 50));
+        jPanel1.add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 160, 50));
 
         log.setBackground(new java.awt.Color(51, 51, 51));
         log.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -179,7 +181,7 @@ public class AdminDashboardd extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        jPanel1.add(log, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, -1, 50));
+        jPanel1.add(log, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, -1, 50));
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -188,6 +190,9 @@ public class AdminDashboardd extends javax.swing.JFrame {
 
         reservation.setBackground(new java.awt.Color(51, 51, 51));
         reservation.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reservationMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 reservationMouseEntered(evt);
             }
@@ -221,7 +226,7 @@ public class AdminDashboardd extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        jPanel1.add(reservation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, -1, 50));
+        jPanel1.add(reservation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, -1, 50));
 
         a.setBackground(new java.awt.Color(51, 51, 51));
         a.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -261,7 +266,47 @@ public class AdminDashboardd extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        jPanel1.add(a, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 160, 50));
+        jPanel1.add(a, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 160, 50));
+
+        a1.setBackground(new java.awt.Color(51, 51, 51));
+        a1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                a1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                a1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                a1MouseExited(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Logs");
+
+        javax.swing.GroupLayout a1Layout = new javax.swing.GroupLayout(a1);
+        a1.setLayout(a1Layout);
+        a1Layout.setHorizontalGroup(
+            a1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 160, Short.MAX_VALUE)
+            .addGroup(a1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(a1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel8)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        a1Layout.setVerticalGroup(
+            a1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+            .addGroup(a1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(a1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel8)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        jPanel1.add(a1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 160, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 440));
 
@@ -368,6 +413,22 @@ public class AdminDashboardd extends javax.swing.JFrame {
      new Court().setVisible(true); this.dispose();
     }//GEN-LAST:event_courtMouseClicked
 
+    private void reservationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reservationMouseClicked
+       new reservation().setVisible(true);this.dispose();
+    }//GEN-LAST:event_reservationMouseClicked
+
+    private void a1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_a1MouseClicked
+       new logs().setVisible(true); this.dispose();
+    }//GEN-LAST:event_a1MouseClicked
+
+    private void a1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_a1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_a1MouseEntered
+
+    private void a1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_a1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_a1MouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -406,6 +467,7 @@ public class AdminDashboardd extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel a;
+    private javax.swing.JPanel a1;
     private javax.swing.JPanel court;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -414,6 +476,7 @@ public class AdminDashboardd extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;

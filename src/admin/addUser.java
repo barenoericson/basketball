@@ -66,6 +66,10 @@ public class addUser extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         back = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
+        Sec = new javax.swing.JTextField();
+        Sac = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -76,11 +80,11 @@ public class addUser extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         password.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        jPanel1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 200, 40));
+        jPanel1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 200, 40));
 
         jLabel6.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel6.setText("Password:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 80, 20));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 80, 20));
 
         username.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         username.addActionListener(new java.awt.event.ActionListener() {
@@ -88,60 +92,60 @@ public class addUser extends javax.swing.JFrame {
                 usernameActionPerformed(evt);
             }
         });
-        jPanel1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 180, 40));
+        jPanel1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 180, 40));
 
         jLabel8.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel8.setText("User ID:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, 80, 20));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 80, 20));
 
         usertype.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         usertype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff" }));
-        jPanel1.add(usertype, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 200, 40));
+        jPanel1.add(usertype, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 200, 40));
 
         jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel1.setText("User Type:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 70, 20));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 70, 20));
 
         email.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        jPanel1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 180, 40));
+        jPanel1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 180, 40));
 
         jLabel7.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel7.setText("Email:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 40, 20));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 40, 20));
 
         lastname.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        jPanel1.add(lastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 200, 40));
+        jPanel1.add(lastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 200, 40));
 
         jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel4.setText("Last Name: ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, -1, 30));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, 30));
 
         firstname.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        jPanel1.add(firstname, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 180, 40));
+        jPanel1.add(firstname, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 180, 40));
 
         jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel3.setText("First Name: ");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
         status.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Pending" }));
-        jPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 311, 180, 40));
+        jPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 180, 40));
 
         uid.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         uid.setEnabled(false);
-        jPanel1.add(uid, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 311, 200, 40));
+        jPanel1.add(uid, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 200, 40));
 
         jLabel9.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel9.setText("User Name:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 80, 20));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 80, 20));
 
         jLabel10.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel10.setText("Status:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 80, 20));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 80, 20));
 
-        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel5.setText("Add User");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, -1, -1));
 
         add.setBackground(new java.awt.Color(51, 51, 51));
         add.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -383,6 +387,27 @@ public class addUser extends javax.swing.JFrame {
 
         jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 430, 120, 40));
 
+        Sec.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        Sec.setText("what's your fav color?");
+        Sec.setEnabled(false);
+        Sec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SecActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Sec, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 180, 40));
+
+        Sac.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jPanel1.add(Sac, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, 180, 40));
+
+        jLabel17.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel17.setText("Security Answer:");
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, -1, 20));
+
+        jLabel18.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel18.setText("Security Question:");
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, -1, 20));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 510, 500));
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
@@ -402,15 +427,18 @@ public class addUser extends javax.swing.JFrame {
     }//GEN-LAST:event_usernameActionPerformed
 
     private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
-          String First_name = firstname.getText().trim();
+    String First_name = firstname.getText().trim();
 String Last_name = lastname.getText().trim();
 String Email = email.getText().trim().toLowerCase();
 String User_type = usertype.getSelectedItem().toString().trim();
 String user_name = username.getText().trim();
 String Password = password.getText().trim();
+String security_question = Sec.getText().trim(); // Security question field
+String security_answer = Sac.getText().trim();   // Security answer field
 
 connectDB connect = new connectDB();
 
+// Validation
 if (First_name.isEmpty()) {
     JOptionPane.showMessageDialog(null, "Please enter your First Name!", "Error", JOptionPane.WARNING_MESSAGE);
 } else if (Last_name.isEmpty()) {
@@ -427,6 +455,10 @@ if (First_name.isEmpty()) {
     JOptionPane.showMessageDialog(null, "Please enter a Password!", "Error", JOptionPane.WARNING_MESSAGE);
 } else if (Password.length() < 8) {
     JOptionPane.showMessageDialog(null, "Password must be at least 8 characters long!", "Error", JOptionPane.WARNING_MESSAGE);
+} else if (security_question.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Please enter a Security Question!", "Error", JOptionPane.WARNING_MESSAGE);
+} else if (security_answer.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Please enter a Security Answer!", "Error", JOptionPane.WARNING_MESSAGE);
 } else {
     try {
         if (connect.fieldExists("users", "username", user_name)) {
@@ -435,13 +467,26 @@ if (First_name.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Email already used!", "Error", JOptionPane.WARNING_MESSAGE);
         } else {
             String hashedPassword = passwordHasher.hashPassword(Password);
+            String hashedSecurityAnswer = passwordHasher.hashPassword(security_answer); // Hash the security answer too
 
-            String sql = "INSERT INTO users (firstname, lastname, username, email, usertype, password, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            int rowsInserted = connect.insertData(sql, First_name, Last_name, user_name, Email, User_type, hashedPassword, "Pending");
+            // Updated SQL query to include security question and answer
+            String sql = "INSERT INTO users (firstname, lastname, username, email, usertype, password, " +
+                        "security_question, security_answer, status) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            
+            int rowsInserted = connect.insertData(sql, 
+                First_name, 
+                Last_name, 
+                user_name, 
+                Email, 
+                User_type, 
+                hashedPassword,
+                security_question,
+                hashedSecurityAnswer,
+                "Pending");
 
             if (rowsInserted > 0) {
                 JOptionPane.showMessageDialog(null, "Registered Successfully!");
-                
                 new LOGIN1().setVisible(true);
                 
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(username);
@@ -455,6 +500,8 @@ if (First_name.isEmpty()) {
     } catch (Exception e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(null, "Database Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        connect.closeConnection(); // Ensure connection is closed
     }
 }
     }//GEN-LAST:event_addMouseClicked
@@ -470,14 +517,14 @@ if (First_name.isEmpty()) {
     private void updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseClicked
          if (firstname.getText().isEmpty() || lastname.getText().isEmpty() || username.getText().isEmpty() || 
     email.getText().isEmpty() || usertype.getSelectedItem() == null || password.getText().isEmpty() || 
-    status.getSelectedItem() == null || uid.getText().isEmpty()) {
+    status.getSelectedItem() == null || uid.getText().isEmpty() || Sec.getText().isEmpty() ||
+    Sac.getText().isEmpty()) {
 
-    JOptionPane.showMessageDialog(null, "All Fields Are Required!");
+    JOptionPane.showMessageDialog(null, "All Fields Are Required!", "Error", JOptionPane.WARNING_MESSAGE);
 
 } else if (password.getText().length() < 8) {
-    JOptionPane.showMessageDialog(null, "Password must be at least 8 characters long!");
+    JOptionPane.showMessageDialog(null, "Password must be at least 8 characters long!", "Error", JOptionPane.WARNING_MESSAGE);
     password.setText("");
-
 } else {
     connectDB cdb = new connectDB();
     try {
@@ -495,15 +542,23 @@ if (First_name.isEmpty()) {
         if (usernameExists || emailExists) {
             JOptionPane.showMessageDialog(null, "Username or Email already exists for another user!", "Validation Error", JOptionPane.WARNING_MESSAGE);
         } else {
+            // Hash the password and security answer
+            String hashedPassword = passwordHasher.hashPassword(password.getText());
+            String hashedSecurityAnswer = passwordHasher.hashPassword(Sac.getText());
+
             int rowsUpdated = cdb.updateData(
-                "UPDATE users SET firstname = ?, lastname = ?, username = ?, email = ?, usertype = ?, password = ?, status = ? WHERE id = ?",
-                firstname.getText(),
-                lastname.getText(),
-                username.getText(),
-                email.getText(),
+                "UPDATE users SET firstname = ?, lastname = ?, username = ?, email = ?, " +
+                "usertype = ?, password = ?, status = ?, security_question = ?, security_answer = ? " +
+                "WHERE id = ?",
+                firstname.getText().trim(),
+                lastname.getText().trim(),
+                username.getText().trim(),
+                email.getText().trim().toLowerCase(),
                 usertype.getSelectedItem().toString(),
-                password.getText(),
+                hashedPassword,
                 status.getSelectedItem().toString(),
+                Sec.getText().trim(),      // Security question
+                hashedSecurityAnswer,      // Hashed security answer
                 userId
             );
 
@@ -588,6 +643,10 @@ if (First_name.isEmpty()) {
         back.setBackground(new Color (51,51,51));
     }//GEN-LAST:event_backMouseExited
 
+    private void SecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SecActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SecActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -624,6 +683,8 @@ if (First_name.isEmpty()) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Sac;
+    private javax.swing.JTextField Sec;
     public javax.swing.JPanel add;
     private javax.swing.JPanel back;
     private javax.swing.JPanel c;
@@ -638,6 +699,8 @@ if (First_name.isEmpty()) {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

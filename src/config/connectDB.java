@@ -15,6 +15,8 @@ public class connectDB {
             System.out.println("Connected to the database successfully!");
         } catch (SQLException ex) {
             System.out.println("Can't connect to database: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Database connection failed: " + ex.getMessage(), 
+                                       "Connection Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -35,17 +37,28 @@ public class connectDB {
         } catch (SQLException ex) {
             System.out.println("Connection Error: " + ex.getMessage());
             ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Insert failed: " + ex.getMessage(), 
+                                       "Database Error", JOptionPane.ERROR_MESSAGE);
         }
         return result;
     }
 
-    // Function to retrieve data
+    // Function to retrieve data (using Statement - less secure)
     public ResultSet getData(String sql) throws SQLException {
         Statement stmt = connect.createStatement();
         return stmt.executeQuery(sql);
     }
 
-    // ✅ Function to retrieve a user by ID (including images)
+    // Function to retrieve data with parameters (more secure)
+    public ResultSet getData(String sql, Object... params) throws SQLException {
+        PreparedStatement pstmt = connect.prepareStatement(sql);
+        for (int i = 0; i < params.length; i++) {
+            pstmt.setObject(i + 1, params[i]);
+        }
+        return pstmt.executeQuery();
+    }
+
+    // Function to retrieve a user by ID
     public ResultSet getUserById(String userId) {
         String sql = "SELECT * FROM users WHERE id = ?";
         try {
@@ -55,8 +68,8 @@ public class connectDB {
         } catch (SQLException e) {
             System.out.println("Database Error: " + e.getMessage());
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     // Function to check if a field exists (for duplicates)
@@ -69,8 +82,23 @@ public class connectDB {
         } catch (SQLException e) {
             System.out.println("Database Error: " + e.getMessage());
             e.printStackTrace();
+            return false;
         }
-        return false;
+    }
+
+    // Implemented the missing method
+    public boolean fieldExistsCustom(String sql, Object... params) {
+        try (PreparedStatement pstmt = connect.prepareStatement(sql)) {
+            for (int i = 0; i < params.length; i++) {
+                pstmt.setObject(i + 1, params[i]);
+            }
+            ResultSet result = pstmt.executeQuery();
+            return result.next();
+        } catch (SQLException e) {
+            System.out.println("Database Error: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 
     // Function to validate login
@@ -100,12 +128,14 @@ public class connectDB {
     }
 
     // Function to display records in a JTable
-    public void displayData(JTable studentTable) {
-        try (ResultSet rs = getData("SELECT * FROM users")) {
-            studentTable.setModel(DbUtils.resultSetToTableModel(rs));
+    public void displayData(JTable table, String tableName) {
+        try (ResultSet rs = getData("SELECT * FROM " + tableName)) {
+            table.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
             ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading data: " + ex.getMessage(), 
+                                       "Database Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -120,6 +150,8 @@ public class connectDB {
         } catch (SQLException ex) {
             System.out.println("Connection Error: " + ex.getMessage());
             ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Update failed: " + ex.getMessage(), 
+                                       "Database Error", JOptionPane.ERROR_MESSAGE);
         }
         return rowsUpdated;
     }
@@ -135,7 +167,7 @@ public class connectDB {
         } catch (SQLException e) {
             System.out.println("Database Error: " + e.getMessage());
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
 }

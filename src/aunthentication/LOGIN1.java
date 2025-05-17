@@ -6,6 +6,7 @@
 package aunthentication;
 
 import admin.AdminDashboardd;
+import admin.forgotpassword;
 import user.UserDashboard;
 import config.Session;
 import config.connectDB;
@@ -88,7 +89,7 @@ public static boolean loginnAcc(String username, String password) throws NoSuchA
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        showpass = new javax.swing.JCheckBox();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -132,9 +133,14 @@ public static boolean loginnAcc(String username, String password) throws NoSuchA
         jLabel6.setText("Welcome Back!");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
 
-        jCheckBox1.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
-        jCheckBox1.setText("Remember me");
-        jPanel2.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
+        showpass.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
+        showpass.setText("Show Password");
+        showpass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showpassActionPerformed(evt);
+            }
+        });
+        jPanel2.add(showpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Verdana", 2, 10)); // NOI18N
         jLabel7.setText("Click SignUp");
@@ -155,6 +161,11 @@ public static boolean loginnAcc(String username, String password) throws NoSuchA
 
         jLabel10.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
         jLabel10.setText("Forgot Password");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, -1, 40));
 
         jLabel11.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
@@ -254,6 +265,19 @@ public static boolean loginnAcc(String username, String password) throws NoSuchA
 }
     }//GEN-LAST:event_logMouseClicked
 
+    private void showpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showpassActionPerformed
+     if(showpass.isSelected()){
+                password.setEchoChar((char)0);
+            }else{
+                password.setEchoChar('*');
+            }
+    }//GEN-LAST:event_showpassActionPerformed
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+     LOGIN1 l = new LOGIN1();
+     l.setVisible(true);this.dispose();
+    }//GEN-LAST:event_jLabel10MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -290,7 +314,6 @@ public static boolean loginnAcc(String username, String password) throws NoSuchA
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -308,6 +331,7 @@ public static boolean loginnAcc(String username, String password) throws NoSuchA
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPanel log;
     private javax.swing.JPasswordField password;
+    private javax.swing.JCheckBox showpass;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,6 +7,7 @@ package admin;
 
 import admin.User;
 import aunthentication.LOGIN1;
+import config.Session;
 import config.connectDB;
 import config.passwordHasher;
 import java.awt.Color;
@@ -64,10 +65,18 @@ public class addreservation extends javax.swing.JFrame {
         et = new javax.swing.JTextField();
         st = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        id = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -368,6 +377,26 @@ public class addreservation extends javax.swing.JFrame {
         jLabel6.setText("Start Time:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 70, 30));
 
+        jRadioButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton1MouseClicked(evt);
+            }
+        });
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 120, -1, -1));
+
+        id.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        id.setEnabled(false);
+        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, 200, 40));
+
+        jLabel9.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel9.setText("User ID:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, 110, 40));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 510, 500));
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
@@ -383,7 +412,72 @@ public class addreservation extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
-     
+ String courtId = cid.getText().trim();
+String reservationDate = revdate.getText().trim();
+String startTime = st.getText().trim();
+String endTime = et.getText().trim();
+String Status = status.getSelectedItem().toString();     
+    
+connectDB connect = new connectDB();
+    
+// Validation
+if (courtId.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Please select a court!", "Error", JOptionPane.WARNING_MESSAGE);
+    connect.closeConnection();
+    return;
+} else if (reservationDate.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Please select a date!", "Error", JOptionPane.WARNING_MESSAGE);
+    connect.closeConnection();
+    return;
+} else if (startTime.isEmpty() || endTime.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Please enter start and end times!", "Error", JOptionPane.WARNING_MESSAGE);
+    connect.closeConnection();
+    return;
+}
+
+try {
+    // Get current user ID (you need to implement this)
+    String currentUserId = "1"; // Replace with actual user ID retrieval
+    
+    // Check for time conflicts - using correct table name 'reservation'
+    String conflictCheck = "SELECT 1 FROM reservation WHERE c_id = ? AND reservation_date = ? " +
+                         "AND ((start_time < ? AND end_time > ?) OR (start_time < ? AND end_time > ?))";
+    boolean hasConflict = connect.fieldExistsCustom(conflictCheck, courtId, reservationDate,
+            endTime, startTime, endTime, startTime);
+    
+    if (hasConflict) {
+        JOptionPane.showMessageDialog(null, "This court is already booked for the selected time!", 
+                                    "Error", JOptionPane.WARNING_MESSAGE);
+    } else {
+        // Correct SQL with all 6 parameters including user_id
+        String sql = "INSERT INTO reservation (c_id, id, reservation_date, start_time, end_time, status) " +
+                     "VALUES (?, ?, ?, ?, ?, ?)";
+        
+        // Include all 6 parameters in correct order
+        int rowsInserted = connect.insertData(sql, 
+            courtId, 
+            currentUserId, // Added user ID
+            reservationDate, 
+            startTime, 
+            endTime, 
+            Status);
+
+        if (rowsInserted > 0) {
+            JOptionPane.showMessageDialog(null, "Reservation created successfully!");
+            new reservation().setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Failed to create reservation!", 
+                                       "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+} catch (Exception e) {
+    e.printStackTrace();
+    JOptionPane.showMessageDialog(null, "Database Error: " + e.getMessage(),
+            "Error", JOptionPane.ERROR_MESSAGE);
+} finally {
+    connect.closeConnection();
+}
     }//GEN-LAST:event_addMouseClicked
 
     private void addMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseEntered
@@ -395,7 +489,67 @@ public class addreservation extends javax.swing.JFrame {
     }//GEN-LAST:event_addMouseExited
 
     private void updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseClicked
-    
+    if (cid.getText().isEmpty() || revdate.getText().isEmpty() || 
+    st.getText().isEmpty() || et.getText().isEmpty() || 
+    status.getSelectedItem() == null || rid.getText().isEmpty()) {
+
+    JOptionPane.showMessageDialog(null, "All Fields Are Required!", "Error", JOptionPane.WARNING_MESSAGE);
+
+} else {
+    connectDB cdb = new connectDB();
+    try {
+        int reservationId;
+        try {
+            reservationId = Integer.parseInt(rid.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid Reservation ID!", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Check for time conflicts (excluding current reservation)
+        String conflictCheck = "SELECT 1 FROM reservation WHERE c_id = ? AND reservation_date = ? " +
+                             "AND ((start_time < ? AND end_time > ?) OR (start_time < ? AND end_time > ?)) " +
+                             "AND reservation_id != ?";
+        
+        boolean hasConflict = cdb.fieldExistsCustom(conflictCheck, 
+            cid.getText().trim(),
+            revdate.getText().trim(),
+            et.getText().trim(),
+            st.getText().trim(),
+            et.getText().trim(),
+            st.getText().trim(),
+            rid.getText().trim());
+
+        if (hasConflict) {
+            JOptionPane.showMessageDialog(null, "This court is already booked for the selected time!", 
+                                        "Validation Error", JOptionPane.WARNING_MESSAGE);
+        } else {
+            int rowsUpdated = cdb.updateData(
+                "UPDATE reservation SET c_id = ?, reservation_date = ?, start_time = ?, end_time = ?, status = ? WHERE reservation_id = ?",
+                cid.getText().trim(),
+                revdate.getText().trim(),
+                st.getText().trim(),
+                et.getText().trim(),
+                status.getSelectedItem().toString(),
+                reservationId
+            );
+
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Reservation updated successfully!");
+                this.dispose();
+                // Open reservation management window after update
+                new reservation().setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Update failed! Reservation ID not found.", "Update Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Database Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        cdb.closeConnection();
+    }
+}
     }//GEN-LAST:event_updateMouseClicked
 
     private void updateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseEntered
@@ -462,6 +616,19 @@ public class addreservation extends javax.swing.JFrame {
         back.setBackground(new Color (51,51,51));
     }//GEN-LAST:event_backMouseExited
 
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton1MouseClicked
+        new courtTable().setVisible(true);this.dispose();
+    }//GEN-LAST:event_jRadioButton1MouseClicked
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        Session sess = Session.getInstance();
+        id.setText(""+sess.getId());
+    }//GEN-LAST:event_formWindowActivated
+
     /**
      * @param args the command line arguments
      */
@@ -508,6 +675,7 @@ public class addreservation extends javax.swing.JFrame {
     public javax.swing.JTextField cname;
     private javax.swing.JPanel delete;
     public javax.swing.JTextField et;
+    public javax.swing.JTextField id;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -523,8 +691,10 @@ public class addreservation extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JPanel r;
     public javax.swing.JTextField revdate;
     public javax.swing.JTextField rid;
